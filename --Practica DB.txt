@@ -1,0 +1,10 @@
+--Practica DB 
+
+-Identificar los campos de la base de datos de pruebas en cada tabla utilizando el comando DESC <table>
+-Verificar los registros de cada tabla utilizando SELECT
+-Insertar registros en la tabla vacía, utilizando INSERT
+-Crear una tabla, llamada usuarios con los siguientes campos: nombre, apellido y departamento
+--para establecer relaciones con los horarios
+-Crear 10 usuarios con el comando INSERT
+
+-Actualizar la tabla usuarios generando una relación con la FK de horarios
