@@ -1,0 +1,204 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Iker$MASTERBASE    |
+| Iker$default       |
+| information_schema |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> use Iker$MASTERBASE
+Database changed
+mysql> show tables;
++---------------------------+
+| Tables_in_Iker$MASTERBASE |
++---------------------------+
+| USUARIO                   |
+| detalle_horario           |
+| horario                   |
+| plantilla_detalle_horario |
++---------------------------+
+4 rows in set (0.00 sec)
+
+mysql> REATE TABLE PlayoffRound (
+    ->      id int(16) NOT NULL,
+    ->      team1id int(13) NOT NULL,
+    ->      team2id int(13) NOT NULL,
+    ->      startTime date NOT NULL,
+    ->      endTime date NOT NULL,
+    ->      roundNum int(14) NOT NULL,
+    ->      PRIMARY KEY (id,startTime)
+    ->  );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REATE TABLE PlayoffRound (
+     id int(16) NOT NULL,
+     team1id int(13) NOT NU' at line 1
+mysql> CREATE TABLE PlayoffRound (
+    ->      id int(16) NOT NULL,
+    ->      team1id int(13) NOT NULL,
+    ->      team2id int(13) NOT NULL,
+    ->      startTime date NOT NULL,
+    ->      endTime date NOT NULL,
+    ->      roundNum int(14) NOT NULL,
+    ->      PRIMARY KEY (id,startTime)
+    ->  );
+Query OK, 0 rows affected, 4 warnings (0.03 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_Iker$MASTERBASE |
++---------------------------+
+| PlayoffRound              |
+| USUARIO                   |
+| detalle_horario           |
+| horario                   |
+| plantilla_detalle_horario |
++---------------------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE HockeyGame (
+    ->     id int(16) NOT NULL,
+    ->     roundId int(13) NOT NULL,
+    ->     startTime date NOT NULL,
+    ->     description text NOT NULL, 
+    ->     team1Id int(13) NOT NULL,
+    ->     team2Id int(13) NOT NULL,
+    ->     PRIMARY KEY (id, startTime)
+    -> );
+Query OK, 0 rows affected, 4 warnings (0.03 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_Iker$MASTERBASE |
++---------------------------+
+| HockeyGame                |
+| PlayoffRound              |
+| USUARIO                   |
+| detalle_horario           |
+| horario                   |
+| plantilla_detalle_horario |
++---------------------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE GameScores (
+    ->     id int(16) NOT NULL,
+    ->     team1Score int(14) NOT NULL,
+    ->     team2Score int(14) NOT NULL,
+    ->     PRIMARY KEY (id, team1Score)
+    -> 
+    -> );
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_Iker$MASTERBASE |
++---------------------------+
+| GameScores                |
+| HockeyGame                |
+| PlayoffRound              |
+| USUARIO                   |
+| detalle_horario           |
+| horario                   |
+| plantilla_detalle_horario |
++---------------------------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE TABLE RoundStats (
+    ->     id int(16) NOT NULL,
+    ->     numShutouts int(13) NOT NULL,
+    ->     goalLeaderId int(13) NOT NULL,
+    ->     assistLeaderId int(13) NOT NULL,
+    ->     penaltyLeaderId int(13) NOT NULL,
+    ->     plusMinusLeaderId int(13) NOT NULL,
+    ->     facesoffsWonLeaderId int(13) NOT NULL,
+    ->     sogLeaderId int(13) NOT NULL,
+    ->     PRIMARY KEY (id, numShutouts)
+    -> );
+Query OK, 0 rows affected, 8 warnings (0.03 sec)
+
+mysql> CREATE TABLE HockeyTeam (
+    ->     id int(16) NOT NULL,
+    ->     name varchar(25) NOT NULL,
+    ->     logo text(35) NOT NULL,
+    ->     PRIMARY KEY(id,name)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> CREATE TABLE HockeyTeamPlayer (
+    ->     id int(16) NOT NULL,
+    ->     hockeyTeamId int(13) NOT NULL,
+    ->     firtsName text(13) NOT NULL,
+    ->     lastName text(13) NOT NULL,
+    ->     jerseyNum int(13) NOT NULL,
+    ->     position varchar(16) NOT NULL,
+    ->     PRIMARY KEY(id, hockeyTeamId)
+    -> );
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+
+mysql> CREATE TABLE UserInfo (
+    ->     id int(16) NOT NULL,
+    ->     firtsName text(13) NOT NULL,
+    ->     lastName text(13) NOT NULL,
+    ->     email varchar(13) NOT NULL,
+    ->     round1Points int(13) NOT NULL,
+    ->     round2Points int(13) NOT NULL,
+    ->     round3Points int(13) NOT NULL,
+    ->     round4Points int(13) NOT NULL,
+    ->     PRIMARY KEY (id, email)
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.03 sec)
+
+mysql> CREATE TABLE User (
+    ->     id int(16) NOT NULL,
+    ->     username varchar(13) NOT NULL,
+    ->     password varchar(13) NOT NULL,
+    ->     PRIMARY KEY(id, username)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> CREATE TABLE UserStatsPicks (
+    ->     id int(16) NOT NULL,
+    ->     roundId int(13) NOT NULL,
+    ->     goalLeaderId int(13) NOT NULL,
+    ->     assistLeaderId int(13) NOT NULL,
+    ->     penaltyLeaderId int(13) NOT NULL,
+    ->     plusMinusLeaderId int(13) NOT NULL,
+    ->     facesoffsWonLeaderId int(13) NOT NULL,
+    ->     sogLeaderId int(13) NOT NULL,
+    ->     numShutouts int(13) NOT NULL,
+    ->     userId int(13) NOT NULL,
+    ->     PRIMARY KEY (id, roundId)
+    -> );
+Query OK, 0 rows affected, 10 warnings (0.03 sec)
+
+mysql> CREATE TABLE UserScorePicks (
+    ->     id int(13) NOT NULL,
+    ->     HockeyGameId int(13) NOT NULL,
+    ->     team1Score int(13) NOT NULL,
+    ->     team2Score int(13) NOT NULL,
+    ->     UserId int(13) NOT NULL,
+    ->     PRIMARY KEY(id, HockeyGameId)
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.03 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_Iker$MASTERBASE |
++---------------------------+
+| GameScores                |
+| HockeyGame                |
+| HockeyTeam                |
+| HockeyTeamPlayer          |
+| PlayoffRound              |
+| RoundStats                |
+| USUARIO                   |
+| User                      |
+| UserInfo                  |
+| UserScorePicks            |
+| UserStatsPicks            |
+| detalle_horario           |
+| horario                   |
+| plantilla_detalle_horario |
++---------------------------+
+14 rows in set (0.00 sec)
