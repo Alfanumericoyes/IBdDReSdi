@@ -1,0 +1,261 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Iker$MASTERBASE    |
+| Iker$default       |
+| information_schema |
+| performance_schema |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> use Iker$MASTERBASE
+Database changed
+mysql> show tables;
++---------------------------+
+| Tables_in_Iker$MASTERBASE |
++---------------------------+
+| GameScores                |
+| HockeyGame                |
+| HockeyTeam                |
+| HockeyTeamPlayer          |
+| PlayoffRound              |
+| RoundStats                |
+| USUARIO                   |
+| User                      |
+| UserInfo                  |
+| UserScorePicks            |
+| UserStatsPicks            |
+| detalle_horario           |
+| horario                   |
+| plantilla_detalle_horario |
++---------------------------+
+14 rows in set (0.00 sec)
+
+mysql> DESC HockeyTeamPlayer;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id           | int         | NO   | PRI | NULL    |       |
+| hockeyTeamId | int         | NO   | PRI | NULL    |       |
+| firtsName    | tinytext    | NO   |     | NULL    |       |
+| lastName     | tinytext    | NO   |     | NULL    |       |
+| jerseyNum    | int         | NO   |     | NULL    |       |
+| position     | varchar(16) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> DESC HockeyTeam;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(25) | NO   | PRI | NULL    |       |
+| logo  | tinytext    | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from HokeyTeamPlayer;
++------+--------------+-----------+----------+-----------+----------+
+| id   | hockeyTeamId | firtsName | lastName | jerseyNum | position |
++------+--------------+-----------+----------+-----------+----------+
+| 1199 |           30 | text      | text     |        12 | lateral  |
++------+--------------+-----------+----------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from PlayoffRound;
+Empty set (0.00 sec)
+
+mysql> DESC PlayoffRound;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| id        | int  | NO   | PRI | NULL    |       |
+| team1id   | int  | NO   |     | NULL    |       |
+| team2id   | int  | NO   |     | NULL    |       |
+| startTime | date | NO   | PRI | NULL    |       |
+| endTime   | date | NO   |     | NULL    |       |
+| roundNum  | int  | NO   |     | NULL    |       |
++-----------+------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> Insert into PlayoffRound (id,team1id,team2id,startTime,endTime,roundNum) values ('12','30','22','2025/06/06 9:00pm','12');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> Insert into PlayoffRound (id,team1id,team2id,startTime,endTime,roundNum) values ('12','30','22','2025/06/06','12');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> Insert into PlayoffRound (id,team1id,team2id,startTime,endTime,roundNum) values ('12','30','22','2025/06/06,'2025/06/06','12');
+    '> ^C
+
+^C
+mysql> Insert into PlayoffRound (id,team1id,team2id,startTime,endTime,roundNum) values ('12','30','22','2025/06/06,'2025/06/06','12');
+    '> 
+
+^C
+mysql> Insert into PlayoffRound (id,team1id,team2id,startTime,endTime,roundNum) values ('12','30','22','2025/06/06','2025/06/06','12');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> Select * from RoundStats;
+Empty set (0.00 sec)
+
+mysql> DESC RoundStats;
++----------------------+------+------+-----+---------+-------+
+| Field                | Type | Null | Key | Default | Extra |
++----------------------+------+------+-----+---------+-------+
+| id                   | int  | NO   | PRI | NULL    |       |
+| numShutouts          | int  | NO   | PRI | NULL    |       |
+| goalLeaderId         | int  | NO   |     | NULL    |       |
+| assistLeaderId       | int  | NO   |     | NULL    |       |
+| penaltyLeaderId      | int  | NO   |     | NULL    |       |
+| plusMinusLeaderId    | int  | NO   |     | NULL    |       |
+| facesoffsWonLeaderId | int  | NO   |     | NULL    |       |
+| sogLeaderId          | int  | NO   |     | NULL    |       |
++----------------------+------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> Insert into RoundStats (id,numShutouts,goalLeaderId,assistLeaderId,penaltyLeaderId,plusMinusLeaderId,facesoffsWonLeaderId,sogLeaderId) values ('21','22,','23','24','25','26','27','28');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> selet * from RoundStats;
++----+-------------+--------------+----------------+-----------------+-------------------+----------------------+-------------+
+| id | numShutouts | goalLeaderId | assistLeaderId | penaltyLeaderId | plusMinusLeaderId | facesoffsWonLeaderId | sogLeaderId |
++----+-------------+--------------+----------------+-----------------+-------------------+----------------------+-------------+
+| 21 |          22 |           23 |             24 |              25 |                26 |                   27 |          28 |
++----+-------------+--------------+----------------+-----------------+-------------------+----------------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> DESC User;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | NO   | PRI | NULL    |       |
+| username | varchar(13) | NO   | PRI | NULL    |       |
+| password | varchar(13) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> Insert into (id,username,password) values ('1288','Carlos','AlfaNumericos');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id,username,password) values ('1288','Carlos','AlfaNumericos')' at line 1
+mysql> Insert into (id,username,password) values ('1288','Carlos','Alfa');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id,username,password) values ('1288','Carlos','Alfa')' at line 1
+mysql>  Insert into User (id,username,password) values ('1288','Carlos','Alfa');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from User;
++------+----------+----------+
+| id   | username | password |
++------+----------+----------+
+| 1288 | Carlos   | Alfa     |
++------+----------+----------+
+1 row in set (0.00 sec)
+
+mysql> DESC UserInfo;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id           | int         | NO   | PRI | NULL    |       |
+| firtsName    | tinytext    | NO   |     | NULL    |       |
+| lastName     | tinytext    | NO   |     | NULL    |       |
+| email        | varchar(13) | NO   | PRI | NULL    |       |
+| round1Points | int         | NO   |     | NULL    |       |
+| round2Points | int         | NO   |     | NULL    |       |
+| round3Points | int         | NO   |     | NULL    |       |
+| round4Points | int         | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> Insert into UserInfo (id,firstName,lastName,email,round1Points,round2Points,round3Points,round4Points) values ('25','Ochoa','Memo','Memo@email','80','65','34','79');
+ERROR 1054 (42S22): Unknown column 'firstName' in 'field list'
+mysql> Insert into UserInfo (id,firtsName,lastName,email,round1Points,round2Points,round3Points,round4Points) values ('25','Ochoa','Memo','Memo@emai
+l','80','65','34','79');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from UserInfo;
++----+-----------+----------+------------+--------------+--------------+--------------+--------------+
+| id | firtsName | lastName | email      | round1Points | round2Points | round3Points | round4Points |
++----+-----------+----------+------------+--------------+--------------+--------------+--------------+
+| 25 | Ochoa     | Memo     | Memo@email |           80 |           65 |           34 |           79 |
++----+-----------+----------+------------+--------------+--------------+--------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> DESC  UserScorePickS;
+ERROR 1146 (42S02): Table 'Iker$MASTERBASE.UserScorePickS' doesn't exist
+mysql> DESC  UserScorePicks;  
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| id           | int  | NO   | PRI | NULL    |       |
+| HockeyGameId | int  | NO   | PRI | NULL    |       |
+| team1Score   | int  | NO   |     | NULL    |       |
+| team2Score   | int  | NO   |     | NULL    |       |
+| UserId       | int  | NO   |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Insert into  UserScorePicks (id,HockeyGameId,team1Score,team2Score,UserId) values ('23','98','400','599','15');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from  UserScorePicks;  
++----+--------------+------------+------------+--------+
+| id | HockeyGameId | team1Score | team2Score | UserId |
++----+--------------+------------+------------+--------+
+| 23 |           98 |        400 |        599 |     15 |
++----+--------------+------------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> DESC UserStatsPicks;
++----------------------+------+------+-----+---------+-------+
+| Field                | Type | Null | Key | Default | Extra |
++----------------------+------+------+-----+---------+-------+
+| id                   | int  | NO   | PRI | NULL    |       |
+| roundId              | int  | NO   | PRI | NULL    |       |
+| goalLeaderId         | int  | NO   |     | NULL    |       |
+| assistLeaderId       | int  | NO   |     | NULL    |       |
+| penaltyLeaderId      | int  | NO   |     | NULL    |       |
+| plusMinusLeaderId    | int  | NO   |     | NULL    |       |
+| facesoffsWonLeaderId | int  | NO   |     | NULL    |       |
+| sogLeaderId          | int  | NO   |     | NULL    |       |
+| numShutouts          | int  | NO   |     | NULL    |       |
+| userId               | int  | NO   |     | NULL    |       |
++----------------------+------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> Insert into UserStatsPicks  (id,roundId,goalLeaderId,assistLeaderId,penaltyLeaderId,plusMinusLeaderId,facesoffsWonLeaderId,sogLeaderId,numShutouts,userId) values ('10','11','12','13','14','15','16','17','18','19','20');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> Insert into UserStatsPicks  (id,roundId,goalLeaderId,assistLeaderId,penaltyLeaderId,plusMinusLeaderId,facesoffsWonLeaderId,sogLeaderId,numShutouts,userId) values ('10','11','12','13','14','15','16','17','18','19',);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> Insert into UserStatsPicks  (id,roundId,goalLeaderId,assistLeaderId,penaltyLeaderId,plusMinusLeaderId,facesoffsWonLeaderId,sogLeaderId,numShutouts,userId) values ('10','11','12','13','14','15','16','17','18','19','20');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> 
+
+^C
+mysql> id                   | int  | NO   | PRI | NULL    |       |
+    -> | roundId              | int  | NO   | PRI | NULL    |       |
+    -> | goalLeaderId         | int  | NO   |     | NULL    |       |
+    -> | assistLeaderId       | int  | NO   |     | NULL    |       |
+    -> | penaltyLeaderId      | int  | NO   |     | NULL    |       |
+    -> | plusMinusLeaderId    | int  | NO   |     | NULL    |       |
+    -> | facesoffsWonLeaderId | int  | NO   |     | NULL    |       |
+    -> | sogLeaderId          | int  | NO   |     | NULL    |       |
+    -> | numShutouts          | int  | NO   |     | NULL    |       |
+    -> | userId  
+    -> 
+
+^C
+mysql> 
+
+^C
+mysql> 
+
+^C
+mysql> Insert into UserStatsPicks  (id,roundId,goalLeaderId,assistLeaderId,penaltyLeaderId,plusMinusLeaderId,facesoffsWonLeaderId,sogLeaderId,numShutouts,userId) values ('10','11','12','13','14','15','16','17','18','19','20');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> Insert into UserStatsPicks  (id,roundId,goalLeaderId,assistLeaderId,penaltyLeaderId,plusMinusLeaderId,facesoffsWonLeaderId,sogLeaderId,numShutouts,userId) values ('10','11','12','13','14','15','16','17','18','19');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from UserStatsPicks;
++----+---------+--------------+----------------+-----------------+-------------------+----------------------+-------------+-------------+--------+
+| id | roundId | goalLeaderId | assistLeaderId | penaltyLeaderId | plusMinusLeaderId | facesoffsWonLeaderId | sogLeaderId | numShutouts | userId |
++----+---------+--------------+----------------+-----------------+-------------------+----------------------+-------------+-------------+--------+
+| 10 |      11 |           12 |             13 |              14 |                15 |                   16 |          17 |          18 |     19 |
++----+---------+--------------+----------------+-----------------+-------------------+----------------------+-------------+-------------+--------+
+1 row in set (0.00 sec);
