@@ -1,0 +1,63 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Iker$Books         |
+| Iker$Compritas     |
+| Iker$MASTERBASE    |
+| Iker$default       |
+| information_schema |
+| performance_schema |
++--------------------+
+6 rows in set (0.88 sec)
+
+mysql> use Iker$Compritas
+Database changed
+mysql> CREATE TABLE Carritos1 (
+    ->     id int(18) NOT NULL,
+    ->     Articulos varchar (15),
+    ->     PRIMARY KEY (id,ARTICULOS)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> Insert into Carritos1 Values 
+    -> (1, 'Azucar'),
+    -> (2,'Pan'),
+    -> (3,'Jugo'),
+    -> (4,'Refresco'),
+    -> (5,'Harina');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE Carritos2 (
+    ->     id int(18) NOT NULL,
+    ->     Articulos varchar(15),
+    ->     PRIMARY KEY (id,Articulos)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> INSERT INTO Carritos2 Values
+    -> (1,'Azucar'),
+    -> (2,'Pan'),
+    -> (6,'Mantequilla'),
+    -> (7,'Queso'),
+    -> (8,'Manzana');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> Select * from Carritos1 left join Carritos2 on Carritos1.Articulos = Carritos2.Articulos
+    -> UNION
+    -> Select * from Carritos1 right join Carritos2 on Carritos1.Articulos = Carritos2.Articulos;
++------+-----------+------+-------------+
+| id   | Articulos | id   | Articulos   |
++------+-----------+------+-------------+
+|    1 | Azucar    |    1 | Azucar      |
+|    2 | Pan       |    2 | Pan         |
+|    3 | Jugo      | NULL | NULL        |
+|    4 | Refresco  | NULL | NULL        |
+|    5 | Harina    | NULL | NULL        |
+| NULL | NULL      |    6 | Mantequilla |
+| NULL | NULL      |    7 | Queso       |
+| NULL | NULL      |    8 | Manzana     |
++------+-----------+------+-------------+
+8 rows in set (0.00 sec)
