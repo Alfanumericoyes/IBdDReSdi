@@ -1,0 +1,207 @@
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| Iker$Books           |
+| Iker$BorradorCompras |
+| Iker$Compritas       |
+| Iker$MASTERBASE      |
+| Iker$default         |
+| information_schema   |
+| performance_schema   |
++----------------------+
+7 rows in set (0.02 sec)
+
+mysql> Drop database Iker$BorradorCompras;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Iker$Books         |
+| Iker$Compritas     |
+| Iker$MASTERBASE    |
+| Iker$default       |
+| information_schema |
+| performance_schema |
++--------------------+
+6 rows in set (0.02 sec)
+
+mysql> use Iker$Compritas
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++--------------------------+
+| Tables_in_Iker$Compritas |
++--------------------------+
+| Carritos1                |
+| Carritos2                |
++--------------------------+
+2 rows in set (0.01 sec)
+
+mysql> CREATE TABLE Gerentes_Empleados (
+    -> Id_Empleado int(18)
+    -> Id_Gerente int(18)
+    -> Puesto varhar(25)
+    -> Puesto varchar(25),
+    -> ^C
+
+^C
+mysql> 
+mysql> CREATE TABLE Gerentes_Empleados (
+    -> Id_Empleado int(18) NOT NULL,
+    -> Id_Gerente int(18),
+    -> Puesto varchar(25),
+    -> Nivel int(18)
+    -> );
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+
+mysql> show tales;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tales' at line 1
+mysql> show tables;
++--------------------------+
+| Tables_in_Iker$Compritas |
++--------------------------+
+| Carritos1                |
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23757621
+Server version: 8.0.40 Source distribution
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| Iker$Books           |
+| Iker$BorradorCompras |
+| Iker$Compritas       |
+| Iker$MASTERBASE      |
+| Iker$default         |
+| information_schema   |
+| performance_schema   |
++----------------------+
+7 rows in set (0.02 sec)
+
+mysql> Drop database Iker$BorradorCompras;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Iker$Books         |
+| Iker$Compritas     |
+| Iker$MASTERBASE    |
+| Iker$default       |
+| information_schema |
+| performance_schema |
++--------------------+
+6 rows in set (0.02 sec)
+
+mysql> use Iker$Compritas
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++--------------------------+
+| Tables_in_Iker$Compritas |
++--------------------------+
+| Carritos1                |
+| Carritos2                |
++--------------------------+
+2 rows in set (0.01 sec)
+
+mysql> CREATE TABLE Gerentes_Empleados (
+    -> Id_Empleado int(18)
+    -> Id_Gerente int(18)
+    -> Puesto varhar(25)
+    -> Puesto varchar(25),
+    -> ^C
+
+^C
+mysql> 
+mysql> CREATE TABLE Gerentes_Empleados (
+    -> Id_Empleado int(18) NOT NULL,
+    -> Id_Gerente int(18),
+    -> Puesto varchar(25),
+    -> Nivel int(18)
+    -> );
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+
+mysql> show tales;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tales' at line 1
+mysql> show tables;
++--------------------------+
+| Tables_in_Iker$Compritas |
++--------------------------+
+| Carritos1                |
+| Carritos2                |
+| Gerentes_Empleados       |
++--------------------------+
+3 rows in set (0.00 sec)
+
+mysql> Desc Gerente_Empleados;
+ERROR 1146 (42S02): Table 'Iker$Compritas.Gerente_Empleados' doesn't exist
+mysql> DESC Gerentes_Empleados;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Id_Empleado | int         | NO   |     | NULL    |       |
+| Id_Gerente  | int         | YES  |     | NULL    |       |
+| Puesto      | varchar(25) | YES  |     | NULL    |       |
+| Nivel       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> Insert into Gerentes_Empleados (Id_Empleado,Id_Gerente,Puesto,Nivel) Values ('1001','0','Presidente','0');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Select * from Gerentes_Empleados;
++-------------+------------+------------+-------+
+| Id_Empleado | Id_Gerente | Puesto     | Nivel |
++-------------+------------+------------+-------+
+|        1001 |          0 | Presidente |     0 |
++-------------+------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql>  Insert into Gerentes_Empleados (Id_Empleado,Id_Gerente,Puesto,Nivel) Values ('2002','1001','Director','1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  Insert into Gerentes_Empleados (Id_Empleado,Id_Gerente,Puesto,Nivel) Values ('3003','1001','Gerente','1');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  Insert into Gerentes_Empleados (Id_Empleado,Id_Gerente,Puesto,Nivel) Values ('4004','2002','Ingeniero','2');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  Insert into Gerentes_Empleados (Id_Empleado,Id_Gerente,Puesto,Nivel) Values ('5005','2002','Contador','2');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  Insert into Gerentes_Empleados (Id_Empleado,Id_Gerente,Puesto,Nivel) Values ('6006','2002','Administrador','2');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> Select * from Gerentes_Empleados;
++-------------+------------+---------------+-------+
+| Id_Empleado | Id_Gerente | Puesto        | Nivel |
++-------------+------------+---------------+-------+
+|        1001 |          0 | Presidente    |     0 |
+|        2002 |       1001 | Director      |     1 |
+|        3003 |       1001 | Gerente       |     1 |
+|        4004 |       2002 | Ingeniero     |     2 |
+|        5005 |       2002 | Contador      |     2 |
+|        6006 |       2002 | Administrador |     2 |
++-------------+------------+---------------+-------+
+6 rows in set (0.01 sec)
