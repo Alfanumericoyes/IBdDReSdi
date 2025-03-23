@@ -1,0 +1,33 @@
+CREATE TABLE Pedidos (
+    -> id_Cliente INT(13),
+    -> id_Orden INT(13),
+    -> Estado_Destino varchar(10),
+    -> Costo decimal (10,2)
+    -> );
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+mysql> INSERT INTO Pedidos (id_Cliente,id_Orden,Estado_Destino,Costo) VALUES
+    -> (1001,1,'JAL',987),
+    -> (1001,2,'CDMX',400),
+    -> (1001,3,'CDMX',545),
+    -> (1001,4,'CDMX',321),
+    -> (2002,5,'MTY',324),
+    -> (3003,6,'JAL',931),
+    -> (4004,7,'JAL',876),
+    -> (5005,8,'CDMX',567);
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+mysql> SELECT DISTINCT p1.id_Cliente, p1.id_Orden, p1.Estado_Destino, p1.Costo
+    -> FROM Pedidos p1
+    -> WHERE p1.Estado_Destino = 'CDMX'
+    -> AND p1.id_Cliente IN (
+    ->     SELECT id_Cliente FROM Pedidos WHERE Estado_Destino = 'JAL'
+    -> );
++------------+----------+----------------+--------+
+| id_Cliente | id_Orden | Estado_Destino | Costo  |
++------------+----------+----------------+--------+
+|       1001 |        2 | CDMX           | 400.00 |
+|       1001 |        3 | CDMX           | 545.00 |
+|       1001 |        4 | CDMX           | 321.00 |
++------------+----------+----------------+--------+
+3 rows in set (0.00 sec)
+mysql> 
