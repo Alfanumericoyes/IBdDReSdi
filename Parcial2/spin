@@ -1,0 +1,18 @@
+CREATE TABLE RegistroIndeterminado (
+ flujo varchar(25) NOT NULL,
+ paso int NOT NULL,
+ estado varchar(25),
+ PRIMARY KEY (flujo,paso,estado)
+);
+Insert into RegistroIndeterminado (
+    ('Alpha','1','ERROR'),
+    ('Alpha','2','Finalizado'),
+    ('Alpha','3','Corriendo'),
+    ('Bravo','1','Finalizado'),
+    ('Bravo','2','Finalizado'),
+    ('Charlie','1','Corriendo'),
+    ('Charlie','2','Corriendo'),
+    ('Delta','1','Error'),
+    ('Delta')
+
+)
