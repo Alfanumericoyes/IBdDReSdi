@@ -1,0 +1,31 @@
+CREATE TABLE Periodos (
+    Inicio DATE,
+    Final DATE
+);
+
+
+INSERT INTO Periodos (Inicio, Final) VALUES
+('2025-01-01', '2025-05-01'),
+('2025-03-01', '2025-09-01'),
+('2025-10-01', '2025-11-01'),
+('2025-12-01', '2025-01-16'),
+('2025-01-15', '2025-01-19');
+
+WITH Fusionados AS (
+    SELECT Inicio, Final
+    FROM Periodos
+    ORDER BY Inicio
+),
+FusionFinal AS (
+    SELECT MIN(Inicio) AS Inicio, MAX(Final) AS Final
+    FROM Fusionados
+    GROUP BY Inicio
+    HAVING NOT EXISTS (
+        SELECT 1
+        FROM Fusionados AS f2
+        WHERE f2.Inicio <= Fusionados.Final AND f2.Final >= Fusionados.Inicio
+        AND f2.Inicio <> Fusionados.Inicio
+    )
+)
+SELECT MIN(Inicio) AS Inicio, MAX(Final) AS Final
+FROM FusionFinal;
