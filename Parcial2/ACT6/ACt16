@@ -1,0 +1,40 @@
+mysql> CREATE TABLE Productos (
+    -> Producto varchar(20),
+    -> Cantidad INT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO Productos (Producto,Cantidad) Values
+    -> ('Lápiz',3),
+    -> ('Borrador',4),
+    -> ('Cuaderno',2);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> 
+mysql> WITH RECURSIVE Desagrupacion AS (
+    -> SELECT Producto, 1 AS Cantidad, Cantidad AS Total
+    -> FROM Productos
+    -> UNION ALL
+    -> SELECT Producto, Cantidad + 1, Total
+    -> FROM Desagrupacion
+    -> WHERE Cantidad < Total
+    -> )
+    -> SELECT Producto, 1 AS Cantidad
+    -> FROM Desagrupacion;
++----------+----------+
+| Producto | Cantidad |
++----------+----------+
+| Lápiz    |        1 |
+| Borrador |        1 |
+| Cuaderno |        1 |
+| Lápiz    |        1 |
+| Borrador |        1 |
+| Cuaderno |        1 |
+| Lápiz    |        1 |
+| Borrador |        1 |
+| Borrador |        1 |
++----------+----------+
+9 rows in set (0.00 sec)
