@@ -1,0 +1,35 @@
+mysql> CREATE TABLE Asientos (
+    -> num_asiento INTEGER
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+mysql> INSERT INTO Asientos (num_asiento) Values
+    -> (7),
+    -> (13),
+    -> (14),
+    -> (15),
+    -> (27),
+    -> (28),
+    -> (29),
+    -> (30),
+    -> (31),
+    -> (32),
+    -> (33),
+    -> (34),
+    -> (35),
+    -> (52),
+    -> (53),
+    -> (54);
+Query OK, 16 rows affected (0.00 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> SELECT MIN(num_asiento) AS espacio_inicio, MAX(num_asiento) AS espacio_final
+    -> FROM Asientos;
++----------------+---------------+
+| espacio_inicio | espacio_final |
++----------------+---------------+
+|              7 |            54 |
++----------------+---------------+
+1 row in set (0.01 sec)
