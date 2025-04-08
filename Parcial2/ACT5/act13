@@ -1,0 +1,29 @@
+CREATE TABLE Grupos (
+    ->     Secuencia int NOT NULL,
+    ->     Sintaxis varchar(12),
+    ->     PRIMARY KEY(Secuencia)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+mysql> 
+mysql> INSERT INTO Grupos VALUES
+    -> (1, 'SELECT'),
+    -> (2, 'Producto,'),
+    -> (3, 'Precio,'),
+    -> (4, 'Disponibilidad,'),
+    -> (5, 'FROM'),
+    -> (6, 'Productos'),
+    -> (7, 'WHERE'),
+    -> (8, 'Precio'),
+    -> (9, '>100');
+Query OK, 9 rows affected, 1 warning (0.01 sec)
+Records: 9  Duplicates: 0  Warnings: 1
+mysql> 
+mysql> SELECT GROUP_CONCAT(Sintaxis SEPARATOR ' ') AS Sintaxis
+    -> FROM Grupos
+    -> ORDER BY Secuencia;
++------------------------------------------------------------------------+
+| Sintaxis                                                               |
++------------------------------------------------------------------------+
+| SELECT Producto, Precio, Disponibilid FROM Productos WHERE Precio >100 |
++------------------------------------------------------------------------+
+1 row in set (0.00 sec)
