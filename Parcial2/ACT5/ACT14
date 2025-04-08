@@ -1,0 +1,26 @@
+CREATE TABLE Partidas (
+    ->     JugadorA int NOT NULL,
+    ->     JugadorB int NOT NULL,
+    ->     Marcador int NOT NULL,
+    ->     PRIMARY KEY (JugadorA, JugadorB)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+mysql> 
+mysql> INSERT INTO Partidas VALUES
+    -> (1001,2002,150),
+    -> (3003,4004,15),
+    -> (4004,3003,125);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+mysql> 
+mysql> SELECT 
+    ->     LEAST(JugadorA, JugadorB) AS JugadorA, 
+    ->     GREATEST(JugadorA, JugadorB) AS JugadorB, 
+    ->     SUM(Marcador) AS Marcador
+    -> FROM Partidas
+    -> GROUP BY LEAST(JugadorA, JugadorB), GREATEST(JugadorA, JugadorB);
++----------+----------+----------+
+| JugadorA | JugadorB | Marcador |
++----------+----------+----------+
+|     1001 |     2002 |      150 |
+|     3003 |     4004 |      140 |
