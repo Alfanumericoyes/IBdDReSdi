@@ -1,0 +1,28 @@
+CREATE TABLE Ventasv2 (
+    ->     Año INT NOT NULL,
+    ->     Cantidad INT NOT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO Ventasv2 VALUES
+    -> (2025, 352645),
+    -> (2024, 165565),
+    -> (2024, 254654),
+    -> (2023, 159521),
+    -> (2023, 251696),
+    -> (2023, 111894);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT 
+    -> SUM(CASE WHEN Año = 2025 THEN Cantidad END) AS '2025',
+    -> SUM(CASE WHEN Año = 2024 THEN Cantidad END) AS '2024',
+    -> SUM(CASE WHEN Año = 2023 THEN Cantidad END) AS '2023'
+    -> FROM Ventasv2;
++--------+--------+--------+
+| 2025   | 2024   | 2023   |
++--------+--------+--------+
+| 352645 | 420219 | 523111 |
++--------+--------+--------+
+1 row in set (0.01 sec)
