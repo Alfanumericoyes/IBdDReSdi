@@ -1,0 +1,34 @@
+mysql> CREATE TABLE Astronauta (
+    ->     Id INT NOT NULL,
+    ->     Trabajo VARCHAR(16) NOT NULL,
+    ->     Misiones INT NOT NULL,
+    ->     PRIMARY KEY(Id, Misiones)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+mysql> Insert Into Astronauta Values
+    -> (1, 'Navegador', 6),
+    -> (2, 'Navegador', 12),
+    -> (3, 'Navegador', 17),
+    -> (4, 'Geólogo', 21),
+    -> (5, 'Geólogo', 9),
+    -> (6, 'Geólogo', 8),
+    -> (7, 'Técnico', 13),
+    -> (8, 'Técnico', 2),
+    -> (9, 'Técnico', 7);
+Query OK, 9 rows affected (0.02 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+mysql> SELECT Trabajo,
+    ->   (SELECT Id FROM Astronauta a2 WHERE a2.Trabajo = a1.Trabajo ORDER BY Misiones DESC LIMIT 1) AS `Experimentados`,
+    ->   (SELECT Id FROM Astronauta a2 WHERE a2.Trabajo = a1.Trabajo ORDER BY Misiones ASC LIMIT 1) AS `Menos Experimentados`
+    -> FROM 
+    ->   Astronauta a1
+    -> GROUP BY 
+    ->   Trabajo;
++-----------+----------------+----------------------+
+| Trabajo   | Experimentados | Menos Experimentados |
++-----------+----------------+----------------------+
+| Navegador |              3 |                    1 |
+| Geólogo   |              4 |                    6 |
+| Técnico   |              7 |                    8 |
++-----------+----------------+----------------------+
+3 rows in set (0.02 sec)
