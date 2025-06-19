@@ -1,0 +1,18 @@
+SELECT ip, COUNT(*) AS invalid_count
+FROM logs
+WHERE 
+    -- IP no tiene 3 puntos (es decir, no tiene 4 octetos)
+    LENGTH(ip) - LENGTH(REPLACE(ip, '.', '')) != 3
+
+    -- O contiene octetos con ceros a la izquierda
+    OR REGEXP_LIKE(ip, '\\b0[0-9]+\\b')
+
+    -- O contiene octetos mayores a 255
+    OR (
+        CAST(SUBSTRING_INDEX(ip, '.', 1) AS UNSIGNED) > 255 OR
+        CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(ip, '.', 2), '.', -1) AS UNSIGNED) > 255 OR
+        CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(ip, '.', 3), '.', -1) AS UNSIGNED) > 255 OR
+        CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(ip, '.', 4), '.', -1) AS UNSIGNED) > 255
+    )
+GROUP BY ip
+ORDER BY invalid_count DESC, ip DESC;
