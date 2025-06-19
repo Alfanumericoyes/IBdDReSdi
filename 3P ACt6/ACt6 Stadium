@@ -1,0 +1,20 @@
+WITH Filtered AS (
+    SELECT *
+    FROM Stadium
+    WHERE people >= 100
+),
+ConsecutiveGroups AS (
+    SELECT *,
+           id - ROW_NUMBER() OVER (ORDER BY id) AS grp
+    FROM Filtered
+),
+ValidGroups AS (
+    SELECT grp
+    FROM ConsecutiveGroups
+    GROUP BY grp
+    HAVING COUNT(*) >= 3
+)
+SELECT id, visit_date, people
+FROM ConsecutiveGroups
+WHERE grp IN (SELECT grp FROM ValidGroups)
+ORDER BY visit_date;
